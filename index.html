@@ -1,0 +1,392 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .shell {
+    background: var(--color-background-secondary);
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+
+  .card {
+    max-width: 460px;
+    margin: 0 auto;
+    background: #faf8f4;
+    border-radius: 16px;
+    border: 0.5px solid #d9d4c7;
+    overflow: hidden;
+  }
+
+  .card-top {
+    padding: 1.75rem 1.75rem 1.25rem;
+    border-bottom: 0.5px solid #d9d4c7;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7F77DD;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .title {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 500;
+    color: #2C2C2A;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .sub {
+    font-size: 13px;
+    color: #888780;
+    line-height: 1.5;
+  }
+
+  .progress-row {
+    display: flex;
+    gap: 5px;
+    padding: 1rem 1.75rem;
+    border-bottom: 0.5px solid #d9d4c7;
+  }
+
+  .pip {
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+    background: #d9d4c7;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+  }
+  .pip.done { background: #AFA9EC; }
+  .pip.active { background: #533AB7; }
+
+  .body {
+    padding: 1.5rem 1.75rem;
+    min-height: 220px;
+  }
+
+  .step-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .num {
+    font-size: 11px;
+    font-weight: 500;
+    color: #7F77DD;
+    letter-spacing: 0.06em;
+  }
+
+  .step-title {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: #2C2C2A;
+    font-weight: 500;
+  }
+
+  .q {
+    font-size: 14px;
+    color: #5F5E5A;
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: #B4B2A9;
+    line-height: 1.5;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 88px;
+    resize: vertical;
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: #2C2C2A;
+    background: #fff;
+    border: 0.5px solid #d9d4c7;
+    border-radius: 8px;
+    padding: 10px 12px;
+    line-height: 1.7;
+    outline: none;
+    transition: border 0.15s;
+  }
+  textarea:focus { border-color: #7F77DD; }
+  textarea::placeholder { color: #D3D1C7; font-style: italic; }
+
+  .foot {
+    padding: 1rem 1.75rem;
+    border-top: 0.5px solid #d9d4c7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .counter {
+    font-size: 12px;
+    color: #B4B2A9;
+    letter-spacing: 0.04em;
+  }
+
+  .btns { display: flex; gap: 8px; }
+
+  .btn {
+    padding: 6px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    border: 0.5px solid #d9d4c7;
+    background: transparent;
+    color: #444441;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    transition: background 0.15s;
+  }
+  .btn:hover { background: #f0ece4; }
+
+  .btn.primary {
+    background: #2C2C2A;
+    color: #faf8f4;
+    border-color: #2C2C2A;
+  }
+  .btn.primary:hover { background: #444441; border-color: #444441; }
+
+  .done-body {
+    padding: 1.75rem 1.75rem;
+  }
+
+  .done-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+
+  .done-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #EEEDFE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .done-title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    color: #2C2C2A;
+  }
+
+  .done-sub {
+    font-size: 13px;
+    color: #888780;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .summary {
+    background: #fff;
+    border: 0.5px solid #d9d4c7;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 1rem;
+  }
+
+  .summary-row {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    line-height: 1.65;
+    padding: 5px 0;
+    border-bottom: 0.5px solid #f0ece4;
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-label { color: #888780; min-width: 88px; flex-shrink: 0; font-style: italic; }
+  .summary-val { color: #2C2C2A; }
+
+  .action-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    font-size: 13px;
+    border-radius: 8px;
+    border: 0.5px solid #2C2C2A;
+    background: #2C2C2A;
+    color: #faf8f4;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: #444441; }
+  .copy-btn.copied { background: #0F6E56; border-color: #0F6E56; }
+
+  .restart-btn {
+    font-size: 12px;
+    color: #888780;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 8px 0;
+  }
+  .restart-btn:hover { color: #444441; }
+</style>
+
+<h2 class="sr-only">Mind Debugger — a journalling card with six prompts and a copy-to-clipboard summary for Notion or any document</h2>
+
+<div class="shell">
+<div class="card" id="card">
+
+  <div class="card-top">
+    <p class="eyebrow">Thoughts</p>
+    <p class="title">Mind Debugger.</p>
+    <p class="sub">Six tiny prompts for when your brain is being dramatic.</p>
+  </div>
+
+  <div class="progress-row" id="pips"></div>
+  <div class="body" id="body"></div>
+
+  <div class="foot" id="foot">
+    <span class="counter" id="ctr"></span>
+    <div class="btns">
+      <button class="btn" id="prevBtn" onclick="move(-1)">back</button>
+      <button class="btn primary" id="nextBtn" onclick="move(1)">next</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const steps = [
+  { name: "observe", q: "What actually happened?", hint: "Raw facts only — no story yet. Think scientist logging data.", ph: "Today I avoided the thing I said I'd do..." },
+  { name: "thought log", q: "What were you telling yourself? Write the actual words.", hint: "The messy inner monologue. Capture it before it rewrites itself.", ph: "'I'm too slow.' 'Everyone else gets this.' 'I'll do it later.'..." },
+  { name: "emotion scan", q: "What were you feeling in your body and mind?", hint: "Frustrated, flat, buzzy, anxious — all valid data.", ph: "Anxious, restless, kind of embarrassed..." },
+  { name: "hypothesis", q: "What mental pattern might explain this?", hint: "You're forming a hypothesis to test — not diagnosing yourself.", ph: "Maybe I avoid things when confused because confusion feels like failure..." },
+  { name: "experiment", q: "What tiny, testable change will you try?", hint: "Think 3-day trial, not 'be better forever'. Small and specific wins.", ph: "For 3 days I'll do 10 mins of the thing before checking my phone..." },
+  { name: "results", q: "What happened when you tried it?", hint: "Success and failure are both data. Scientists don't moralise results.", ph: "Starting was harder than doing it. Writing down confusion helped..." }
+];
+
+const labels = ['Observe','Thought Log','Emotion Scan','Hypothesis','Experiment','Results'];
+let cur = 0;
+const ans = Array(steps.length).fill('');
+
+function renderPips() {
+  const row = document.getElementById('pips');
+  row.innerHTML = '';
+  steps.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'pip' + (i < cur ? ' done' : i === cur ? ' active' : '');
+    b.setAttribute('aria-label', 'step ' + (i+1));
+    b.onclick = () => { save(); jumpTo(i); };
+    row.appendChild(b);
+  });
+}
+
+function renderStep() {
+  const s = steps[cur];
+  document.getElementById('body').innerHTML = `
+    <div class="step-meta">
+      <span class="num">0${cur+1}</span>
+      <span class="step-title">${s.name}</span>
+    </div>
+    <p class="q">${s.q}</p>
+    <p class="hint">${s.hint}</p>
+    <textarea id="ta" placeholder="${s.ph}">${ans[cur]}</textarea>
+  `;
+  document.getElementById('ta').addEventListener('input', e => { ans[cur] = e.target.value; });
+}
+
+function renderFoot() {
+  document.getElementById('ctr').textContent = `${cur+1} / ${steps.length}`;
+  document.getElementById('prevBtn').style.visibility = cur === 0 ? 'hidden' : 'visible';
+  document.getElementById('nextBtn').textContent = cur === steps.length - 1 ? 'finish' : 'next';
+}
+
+function save() { const ta = document.getElementById('ta'); if (ta) ans[cur] = ta.value; }
+function move(d) {
+  save();
+  if (d === 1 && cur === steps.length - 1) { showDone(); return; }
+  cur = Math.max(0, Math.min(steps.length - 1, cur + d));
+  render();
+}
+function jumpTo(i) { cur = i; render(); }
+function render() { renderPips(); renderStep(); renderFoot(); document.getElementById('foot').style.display = 'flex'; }
+
+function buildCopyText() {
+  const now = new Date();
+  const date = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  let out = `MIND DEBUGGING — ${date}\n${'─'.repeat(32)}\n\n`;
+  ans.forEach((a, i) => {
+    if (a.trim()) out += `${labels[i].toUpperCase()}\n${a.trim()}\n\n`;
+  });
+  out += `${'─'.repeat(32)}\nLogged with Diary Scientist`;
+  return out;
+}
+
+function copyEntry() {
+  const text = buildCopyText();
+  const btn = document.getElementById('copyBtn');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = '<i class="ti ti-check" style="font-size:15px" aria-hidden="true"></i> copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<i class="ti ti-clipboard" style="font-size:15px" aria-hidden="true"></i> copy entry';
+    }, 2500);
+  }).catch(() => {
+    btn.textContent = 'try again';
+  });
+}
+
+function showDone() {
+  renderPips();
+  const filled = ans.filter(a => a.trim()).length;
+  let rows = '';
+  ans.forEach((a, i) => {
+    if (a.trim()) rows += `<div class="summary-row"><span class="summary-label">${labels[i].toLowerCase()}</span><span class="summary-val">${a.trim().slice(0,110)}${a.trim().length>110?'…':''}</span></div>`;
+  });
+
+  document.getElementById('body').innerHTML = `
+    <div class="done-body">
+      <div class="done-top">
+        <div class="done-icon"><i class="ti ti-flask" style="font-size:18px;color:#533AB7" aria-hidden="true"></i></div>
+        <p class="done-title">entry logged.</p>
+      </div>
+      <p class="done-sub">${filled} of ${steps.length} fields filled. Paste it into Notion, a doc, or anywhere you keep your thinking.</p>
+      ${rows ? `<div class="summary">${rows}</div>` : ''}
+      <div class="action-row">
+        <button class="copy-btn" id="copyBtn" onclick="copyEntry()">
+          <i class="ti ti-clipboard" style="font-size:15px" aria-hidden="true"></i> copy entry
+        </button>
+        <button class="restart-btn" onclick="restart()">new entry</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('foot').style.display = 'none';
+}
+
+function restart() { cur = 0; ans.fill(''); document.getElementById('foot').style.display = 'flex'; render(); }
+
+render();
+</script>
